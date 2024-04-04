@@ -48,6 +48,11 @@
        - install
 
    - include_tasks:
+       file: tasks/zsh.yml
+     tags:
+       - install
+
+   - include_tasks:
        file: tasks/1password.yml
      tags:
        - install
@@ -73,5 +78,15 @@
 
    - include_tasks:
        file: tasks/i3.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/keyboard.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/neovim.yml
      tags:
        - install

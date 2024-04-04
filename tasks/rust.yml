@@ -16,3 +16,4 @@
 - name: Install Rust/cargo
   ansible.builtin.shell:
     cmd: /tmp/sh.rustup.rs -y
+  when: cargo_exists is failed

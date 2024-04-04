@@ -96,3 +96,25 @@
   tags:
     - alacritty
 
+- name: Create fonts directory if not exists
+  become: yes
+  file:
+    path: /usr/share/fonts/truetype/FiraMonoNerdFont
+    state: directory
+
+- name: Download Fira Code Mono Nerd Font
+  become: yes
+  get_url:
+    url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.0/FiraMono.zip"
+    dest: /tmp/FiraMono.zip
+
+- name: Unzip Fira Mono Nerd Font
+  become: yes
+  unarchive:
+    src: "/tmp/FiraMono.zip"
+    dest: "/usr/share/fonts/truetype/FiraMonoNerdFont"
+    remote_src: yes
+    creates: "/usr/share/fonts/truetype/FiraMonoNerdFont/FiraMono-Regular-Nerd-Font-Complete.ttf"
+
+- name: Update font cache
+  shell: fc-cache -f -v

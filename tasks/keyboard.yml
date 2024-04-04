@@ -1,0 +1,3 @@
+- name: Set X11 keymap
+  become: yes
+  command: localectl --no-convert set-x11-keymap us,ca pc105 ,multix grp:win_space_toggle,ctrl:nocaps

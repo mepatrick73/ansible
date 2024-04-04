@@ -1,0 +1,13 @@
+- name: Install required packages
+  become: yes
+  dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - fzf
+    - nodejs
+    - luarocks
+    - python3-pip
+    - ripgrep
+    - fd-find
+    - neovim
