@@ -1,0 +1,77 @@
+- hosts: localhost
+  vars:
+    source_key: ./.ssh/id_ed25519
+    dest_key: '{{ lookup(''env'', ''HOME'') }}/.ssh/id_ed25519'
+  pre_tasks:
+    - name: Update Dnf
+      become: true
+      dnf:
+        update_cache: true
+        state: present
+      tags:
+        - install
+        - core
+    - name: Enable the RPM Fusion repository
+      become: true
+      dnf:
+        name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm"
+        state: present
+      when: ansible_distribution == 'Fedora'
+    - name: Updating git
+      become: true
+      dnf:
+        name: git
+        state: latest
+      when: ansible_distribution == 'Fedora'
+  tasks:
+   - include_tasks:
+       file: tasks/ssh.yml
+     tags:
+       - ssh
+       - dotfiles
+       - install
+
+   - include_tasks:
+       file: tasks/core.yml
+     tags:
+       - core
+       - install
+
+   - include_tasks:
+       file: tasks/rust.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/alacritty.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/1password.yml
+     tags:
+       - install
+   - include_tasks:
+       file: tasks/ffmpeg.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/lazygit.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/git-setup.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/dotfiles.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/i3.yml
+     tags:
+       - install

@@ -1,0 +1,27 @@
+- name: Install System Packages 1 (build-essential, cmake, pkg-config, pthread)
+  ansible.builtin.dnf:
+    name: ["gcc", "gcc-c++", "cmake", "pkg-config", "glibc-devel"]
+    state: present
+  become: yes
+  tags:
+    - install
+    - core
+
+- name: Install System Packages 2 (lua, unzip, libtool, libtool-bin, gettext)
+  ansible.builtin.dnf:
+    name: ["lua", "unzip", "libtool", "libtool-ltdl"]
+    state: present
+  become: yes
+  tags:
+    - install
+    - core
+
+- name: Install System Packages 3 (the rest)
+  ansible.builtin.dnf:
+    name: ["lsof",  "ccache", "ninja-build","pavucontrol", "util-linux-user", "clang", "clang-tools-extra", "tldr" ]
+    state: present
+  become: yes
+  tags:
+    - install
+    - core
+

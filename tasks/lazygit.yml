@@ -1,0 +1,15 @@
+- name: Enable atim/lazygit Copr repository
+  ansible.builtin.command:
+    cmd: "dnf copr enable atim/lazygit -y"
+  become: yes
+  tags:
+    - install
+
+- name: Install lazygit
+  ansible.builtin.dnf:
+    name: lazygit
+    state: present
+  become: yes
+  tags:
+    - install
+

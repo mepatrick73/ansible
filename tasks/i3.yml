@@ -1,0 +1,26 @@
+- name: Install fedora-workstation-repositories
+  become: yes
+  dnf:
+    name: fedora-workstation-repositories
+    state: present
+
+- name: Enable Google Chrome repository
+  become: yes
+  dnf:
+    name: google-chrome
+    state: present
+    enablerepo: google-chrome
+
+- name: Install packages
+  become: yes
+  dnf:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - rofi
+    - discord
+    - google-chrome-stable
+    - nitrogen
+    - picom
+    - maim
+    - xclip

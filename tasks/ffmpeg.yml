@@ -1,0 +1,10 @@
+- name: Install ffmpeg with allowerasing option using dnf
+  become: yes
+  ansible.builtin.dnf:
+    name: ffmpeg
+    state: present
+    allowerasing: yes
+    update_cache: yes
+  tags:
+    - install
+
