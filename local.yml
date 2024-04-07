@@ -47,10 +47,6 @@
      tags:
        - install
 
-   - include_tasks:
-       file: tasks/zsh.yml
-     tags:
-       - install
 
    - include_tasks:
        file: tasks/1password.yml
@@ -73,6 +69,11 @@
 
    - include_tasks:
        file: tasks/dotfiles.yml
+     tags:
+       - install
+
+   - include_tasks:
+       file: tasks/zsh.yml
      tags:
        - install
 
