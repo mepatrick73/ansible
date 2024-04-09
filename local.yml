@@ -91,3 +91,9 @@
        file: tasks/neovim.yml
      tags:
        - install
+
+   - include_tasks:
+       file: tasks/discord.yml
+     tags:
+       - install
+

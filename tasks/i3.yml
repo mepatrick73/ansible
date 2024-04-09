@@ -18,9 +18,9 @@
     state: present
   loop:
     - rofi
-    - discord
     - google-chrome-stable
     - nitrogen
     - picom
     - maim
     - xclip
+

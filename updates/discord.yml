@@ -1,0 +1,32 @@
+- name: Remove Discord directory
+  become: yes
+  file:
+    path: "/opt/Discord/"
+    state: absent
+
+- name: Download Discord archive
+  become: yes
+  get_url:
+    url: "https://discord.com/api/download?platform=linux&format=tar.gz"
+    dest: "/tmp/discord.tar.gz"
+
+- name: Extract Discord archive
+  become: yes
+  unarchive:
+    src: "/tmp/discord.tar.gz"
+    dest: "/opt/"
+    remote_src: yes
+    creates: "/opt/Discord/"
+
+- name: Remove downloaded archive
+  become: yes
+  file:
+    path: "/tmp/discord.tar.gz"
+    state: absent
+
+- name: Create symbolic link
+  become: yes
+  file:
+    src: "/opt/Discord/Discord"
+    dest: "/usr/local/bin/Discord"
+    state: link
