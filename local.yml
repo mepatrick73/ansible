@@ -97,3 +97,8 @@
      tags:
        - install
 
+   - include_tasks:
+       file: tasks/postman.yml
+     tags:
+       - install
+

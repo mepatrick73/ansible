@@ -1,0 +1,35 @@
+- name: Check if Postman directory exists
+  stat:
+    path: "/opt/Postman/"
+  register: postman_dir
+
+- name: Download Postman archive
+  become: yes
+  get_url:
+    url: "https://dl.pstmn.io/download/latest/linux_64"
+    dest: "/tmp/postman.tar.gz"
+  when: not postman_dir.stat.exists
+
+- name: Extract Postman archive
+  become: yes
+  unarchive:
+    src: "/tmp/postman.tar.gz"
+    dest: "/opt/"
+    remote_src: yes
+    creates: "/opt/Postman/"
+  when: not postman_dir.stat.exists
+
+- name: Remove downloaded archive
+  become: yes
+  file:
+    path: "/tmp/postman.tar.gz"
+    state: absent
+  when: not postman_dir.stat.exists
+
+- name: Create symbolic link
+  become: yes
+  file:
+    src: "/opt/Postman/Postman"
+    dest: "/usr/local/bin/Postman"
+    state: link
+  when: not postman_dir.stat.exists
