@@ -111,7 +111,3 @@
      tags:
        - install
 
-   - include_tasks:
-       file: tasks/touchpad.yml
-     tags:
-       - install
