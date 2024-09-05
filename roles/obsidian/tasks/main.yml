@@ -1,0 +1,42 @@
+---
+- name: Ensure /opt directory exists
+  file:
+    path: "/opt"
+    state: directory
+    mode: '0755'
+  tags:
+    - obsidian
+    - install
+
+- name: Download Obsidian AppImage
+  become: true
+  get_url:
+    url: "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.6.7/Obsidian-1.6.7.AppImage"
+    dest: "/opt/Obsidian.AppImage"
+    mode: '0755'
+  register: obsidian_download
+  when: not (ansible_facts['user_home'] is defined and obsidian_installed.stat.exists)
+  tags:
+    - obsidian
+    - install
+
+- name: Make Obsidian AppImage executable
+  become: true
+  file:
+    path: "/opt/Obsidian.AppImage"
+    mode: '0755'
+  when: obsidian_download.changed
+  tags:
+    - obsidian
+    - install
+
+- name: Create a symbolic link to /usr/local/bin for easier command-line access
+  become: true
+  file:
+    src: "/opt/Obsidian.AppImage"
+    dest: /usr/local/bin/obsidian
+    state: link
+  tags:
+    - obsidian
+    - install
+

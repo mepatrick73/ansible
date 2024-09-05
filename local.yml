@@ -23,12 +23,21 @@
         name: git
         state: latest
       when: ansible_distribution == 'Fedora'
+
   tasks:
+
    - include_tasks:
        file: tasks/ssh.yml
      tags:
        - ssh
        - dotfiles
+       - install
+
+   - name: Set up Obsidian
+     include_role:
+       name: obsidian
+     tags:
+       - obsidian
        - install
 
    - include_tasks:
