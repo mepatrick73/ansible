@@ -1,3 +1,6 @@
 - name: Set X11 keymap
   become: yes
-  command: localectl --no-convert set-x11-keymap us,ca pc105 ,multix grp:alt_shift_toggle,ctrl:nocaps
+  command: localectl --no-convert set-x11-keymap us pc105 altgr-intl ctrl:nocaps 
+  tags: 
+    - install
+    - keyboard
